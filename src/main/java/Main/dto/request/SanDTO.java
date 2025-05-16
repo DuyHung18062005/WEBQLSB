@@ -6,34 +6,22 @@ import java.util.List;
 
 public class SanDTO {
     private String tenSan;
-    private String diaChi;
     private String loaiSan;
-    private String giaSan;
-    private List<KhungGioCoDinhDTO> khungGioCoDinhs; // Danh sách khung giờ
+    private String diaChi;
+    private double giaSan;
+    private List<KhungGioTheoNgayDTO> khungGio7Ngay;
 
-    public SanDTO(String diaChi, String giaSan, List<KhungGioCoDinhDTO> khungGioCoDinhs, String loaiSan, String tenSan) {
+    // Constructor tương ứng các tham số
+    public SanDTO(String tenSan,
+                  String loaiSan,
+                  String diaChi,
+                  double giaSan,
+                  List<KhungGioTheoNgayDTO> khungGio7Ngay) {
+        this.tenSan = tenSan;
+        this.loaiSan = loaiSan;
         this.diaChi = diaChi;
         this.giaSan = giaSan;
-        this.khungGioCoDinhs = khungGioCoDinhs;
-        this.loaiSan = loaiSan;
-        this.tenSan = tenSan;
-    }
-
-    public SanDTO(String tenSan, String loaiSan, String diaChi, Long giaSan, List<KhungGioCoDinhDTO> khungGioDtos) {
-        this.tenSan = tenSan;
-        this.loaiSan = loaiSan;
-        this.diaChi = diaChi;
-        this.giaSan = giaSan != null ? String.valueOf(giaSan) : null; // vì field là String
-        this.khungGioCoDinhs = khungGioDtos;
-    }
-
-    // Getters và setters
-    public String getTenSan() {
-        return tenSan;
-    }
-
-    public void setTenSan(String tenSan) {
-        this.tenSan = tenSan;
+        this.khungGio7Ngay = khungGio7Ngay;
     }
 
     public String getDiaChi() {
@@ -44,20 +32,20 @@ public class SanDTO {
         this.diaChi = diaChi;
     }
 
-    public List<KhungGioCoDinhDTO> getKhungGioCoDinhs() {
-        return khungGioCoDinhs;
-    }
-
-    public void setKhungGioCoDinhs(List<KhungGioCoDinhDTO> khungGioCoDinhs) {
-        this.khungGioCoDinhs = khungGioCoDinhs;
-    }
-
-    public String getGiaSan() {
+    public double getGiaSan() {
         return giaSan;
     }
 
-    public void setGiaSan(String giaSan) {
+    public void setGiaSan(double giaSan) {
         this.giaSan = giaSan;
+    }
+
+    public List<KhungGioTheoNgayDTO> getKhungGio7Ngay() {
+        return khungGio7Ngay;
+    }
+
+    public void setKhungGio7Ngay(List<KhungGioTheoNgayDTO> khungGio7Ngay) {
+        this.khungGio7Ngay = khungGio7Ngay;
     }
 
     public String getLoaiSan() {
@@ -66,5 +54,13 @@ public class SanDTO {
 
     public void setLoaiSan(String loaiSan) {
         this.loaiSan = loaiSan;
+    }
+
+    public String getTenSan() {
+        return tenSan;
+    }
+
+    public void setTenSan(String tenSan) {
+        this.tenSan = tenSan;
     }
 }

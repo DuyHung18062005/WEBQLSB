@@ -1,15 +1,13 @@
 package Main.service;
 
-import Main.dto.request.ChiNhanhDTO;
-import Main.dto.request.KhungGioCoDinhDTO;
-import Main.dto.request.SanDTO;
-import Main.dto.request.SanInfoDTO;
+import Main.dto.request.*;
 import Main.entity.*;
 import Main.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -109,63 +107,33 @@ public class UserServiceImpl implements UserService {
             San san = sanRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy sân với ID: " + id));
 
-            // Lấy danh sách KhungGioCoDinhDTO từ các khung giờ có trong sân
-            List<KhungGioCoDinhDTO> khungGioDtos = san.getKhungGioCoDinhs().stream()
-                    .map(khungGio -> new KhungGioCoDinhDTO(
-                            khungGio.getThoiGianBatDau() + "-" + khungGio.getThoiGianKetThuc(),
-                            khungGio.isDaDat() ? "Đã đặt" : "Trống"
-                    ))
-                    .collect(Collectors.toList());
+            LocalDate homNay = LocalDate.now();
+            List<KhungGioTheoNgayDTO> dsTheoNgay = new ArrayList<>();
 
-            // Trả về SanDTO với thông tin sân và danh sách khung giờ
+            for (int i = 0; i < 7; i++) {
+                LocalDate ngay = LocalDate.now().plusDays(i);
+
+                List<KhungGioCoDinhDTO> khungGioDTOCuaNgay = san.getKhungGioCoDinhs().stream()
+                        .map(kg -> {
+                            boolean daDat = datsanRepository.findBySanAndKhungGioCoDinhAndNgay(san, kg, ngay).isPresent();
+                            String trangThai = daDat ? "Đã đặt" : "Còn trống";
+                            String khungGio = kg.getThoiGianBatDau() + " - " + kg.getThoiGianKetThuc();
+                            return new KhungGioCoDinhDTO(khungGio, trangThai);
+                        })
+                        .collect(Collectors.toList());
+                dsTheoNgay.add(new KhungGioTheoNgayDTO(khungGioDTOCuaNgay, ngay));
+            }
+
             return new SanDTO(
-                    san.getTenSan(), // Name of the field
-                    san.getLoaiSan(), // Type of the field
-                    san.getChiNhanh().getDiaChi(), // Address of the branch
-                    san.getGiaSan(), // Price of the field
-                    khungGioDtos // List of time slots
-                    // Add or remove parameters here based on the updated SanDTO
+                    san.getTenSan(),
+                    san.getLoaiSan(),
+                    san.getChiNhanh().getDiaChi(),
+                    san.getGiaSan(),
+                    dsTheoNgay
             );
         } catch (Exception e) {
             throw new RuntimeException("Lỗi khi lấy thông tin sân theo ID", e);
         }
     }
-
-    // Đặt sân
-
-//    public String datSan(Long sanId, Long userId, String ngay, int idKhungGio) {
-//        try {
-//            // Kiểm tra các entity có tồn tại không
-//            San san = sanRepository.findById(sanId)
-//                    .orElseThrow(() -> new RuntimeException("Không tìm thấy Sân với ID: " + sanId));
-//            User user = userRepository.findById(Math.toIntExact(userId))
-//                    .orElseThrow(() -> new RuntimeException("Không tìm thấy User với ID: " + userId));
-//            Ngay ngayEntity = ngayRepository.findByNgay(LocalDate.parse(ngay))
-//                    .orElseThrow(() -> new RuntimeException("Không tìm thấy Ngày với ngày: " + ngay));
-//
-//            // Kiểm tra xem khung giờ đã được đặt hay chưa
-//            Optional<Datsan> datsanOpt = datsanRepository.findBySanAndNgayAndIdKhungGio(san, ngayEntity, idKhungGio);
-//            if (datsanOpt.isPresent()) {
-//                return "Sân đã được đặt trong khoảng thời gian này!";
-//            }
-//
-//            // Tạo đặt sân
-//            Datsan datsan = new Datsan();
-//            datsan.setSan(san);
-//            datsan.setUser(user);
-//            datsan.setNgay(LocalDate.parse(ngayEntity.toString()));
-//            datsan.setTrangThai(TrangThai.valueOf("Đã Đặt"));
-//            datsan.setIdKhungGio((long) idKhungGio); // Khung giờ chỉ cần id, hoặc bạn có thể thay bằng một đối tượng khác nếu cần.
-//
-//            // Lưu thông tin đặt sân
-//            datsanRepository.save(datsan);
-//
-//            return "Đặt sân thành công!";
-//        } catch (RuntimeException ex) {
-//            throw ex;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Lỗi khi đặt sân", e);
-//        }
-//    }
 
 }
