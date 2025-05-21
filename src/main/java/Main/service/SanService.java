@@ -25,7 +25,7 @@ public class SanService {
         this.chiNhanhRepo = chiNhanhRepo;
     }
 
-    public San taoSanVaKhungGio(SanRequestDTO request) {
+    public String taoSanVaKhungGio(SanRequestDTO request) {
         San san = new San();
         san.setTenSan(request.getTenSan());
         san.setLoaiSan(request.getLoaiSan());
@@ -53,6 +53,6 @@ public class SanService {
         khungRepo.saveAll(slots);
 
         saved.setKhungGioCoDinhs(slots);
-        return saved;
+        return "Tạo sân thành công";
     }
 }

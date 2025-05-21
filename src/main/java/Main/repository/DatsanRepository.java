@@ -5,6 +5,7 @@ import Main.entity.KhungGioCoDinh;
 import Main.entity.Ngay;
 import Main.entity.San;
 import Main.service.TrangThai;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ public interface DatsanRepository extends JpaRepository<Datsan, Long> {
     );
 
     List<Datsan> findByTrangThai(TrangThai trangThai);
+
+
+
 
 
 }

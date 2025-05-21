@@ -131,6 +131,7 @@ public class AdminServiceImpl implements AdminService {
             dto.setChiNhanh(d.getSan().getChiNhanh().getTenChiNhanh());
             dto.setNgayDat(d.getNgay());
             dto.setTrangThaiThanhToan(d.getTrangThai().name());
+            dto.setNguoiDat(d.getUser().getHoTen());
             return dto;
         }).collect(Collectors.toList());
     }

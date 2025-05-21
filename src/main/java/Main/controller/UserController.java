@@ -47,7 +47,7 @@ public class UserController {
         return userService.filterSanByTen(ten);
     }
 
-
+    // Xem chi tiet san
     @GetMapping("/{id}")
     public SanDTO getSan(@PathVariable Long id) {
         return userService.getSanInfoById(id);

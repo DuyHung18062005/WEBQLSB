@@ -8,13 +8,15 @@ public class QuanLyDatSanDTO {
     private String chiNhanh;
     private LocalDate ngayDat;
     private String trangThaiThanhToan;
+    private String nguoiDat;
 
-    public QuanLyDatSanDTO(String chiNhanh, Long idDatSan, LocalDate ngayDat, String tenSan, String trangThaiThanhToan) {
+    public QuanLyDatSanDTO(String chiNhanh, Long idDatSan, LocalDate ngayDat, String tenSan, String trangThaiThanhToan, String nguoiDat) {
         this.chiNhanh = chiNhanh;
         this.idDatSan = idDatSan;
         this.ngayDat = ngayDat;
         this.tenSan = tenSan;
         this.trangThaiThanhToan = trangThaiThanhToan;
+        this.nguoiDat = nguoiDat;
     }
 
     public QuanLyDatSanDTO() {
@@ -60,5 +62,13 @@ public class QuanLyDatSanDTO {
 
     public void setTrangThaiThanhToan(String trangThaiThanhToan) {
         this.trangThaiThanhToan = trangThaiThanhToan;
+    }
+
+    public String getNguoiDat(String hoTen) {
+        return nguoiDat;
+    }
+
+    public void setNguoiDat(String nguoiDat) {
+        this.nguoiDat = nguoiDat;
     }
 }

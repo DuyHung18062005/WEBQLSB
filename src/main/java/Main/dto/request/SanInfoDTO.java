@@ -5,10 +5,10 @@ public class SanInfoDTO {
     private String loaiSan;
     private String tenChiNhanh;
 
-    public SanInfoDTO(String loaiSan, String tenChiNhanh, String tenSan) {
+    public SanInfoDTO(String tenSan, String loaiSan, String tenChiNhanh) {
+        this.tenSan = tenSan;
         this.loaiSan = loaiSan;
         this.tenChiNhanh = tenChiNhanh;
-        this.tenSan = tenSan;
     }
 
     public String getLoaiSan() {
