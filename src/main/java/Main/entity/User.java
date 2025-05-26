@@ -30,8 +30,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Datsan> datsans;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Hoadon> hoadons;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Hoadon> hoadons;
 
     public Chinhanh getChiNhanh() {
         return chiNhanh;
@@ -56,14 +56,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public List<Hoadon> getHoadons() {
-        return hoadons;
-    }
-
-    public void setHoadons(List<Hoadon> hoadons) {
-        this.hoadons = hoadons;
-    }
+//
+//    public List<Hoadon> getHoadons() {
+//        return hoadons;
+//    }
+//
+//    public void setHoadons(List<Hoadon> hoadons) {
+//        this.hoadons = hoadons;
+//    }
 
     public String getHoTen() {
         return hoTen;
