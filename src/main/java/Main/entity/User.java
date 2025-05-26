@@ -30,8 +30,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Datsan> datsans;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Hoadon> hoadons;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hoadon> hoadons;
 
     public Chinhanh getChiNhanh() {
         return chiNhanh;
